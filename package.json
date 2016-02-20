@@ -1,0 +1,40 @@
+{
+  "name": "taleit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.5.2",
+    "babel-eslint": "^5.0.0",
+    "babel-loader": "^6.2.3",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.5.2",
+    "babel-root-import": "^3.2.2",
+    "debug": "^2.2.0",
+    "dotenv": "^2.0.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.1",
+    "eslint-plugin-react": "^3.16.1",
+    "express": "^4.13.4",
+    "koa": "^1.1.2",
+    "koa-compose": "^2.3.0",
+    "koa-logger": "^1.3.0",
+    "koa-webpack-dev-middleware": "^1.1.0",
+    "koa-webpack-hot-middleware": "^1.0.3",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
+    "webpack": "^1.12.13",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-hot-middleware": "^2.7.1"
+  }
+}
