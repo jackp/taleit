@@ -21,4 +21,9 @@ class Html extends Component {
   }
 }
 
+Html.propTypes = {
+  title: PropTypes.string,
+  content: PropTypes.string,
+};
+
 export default Html;

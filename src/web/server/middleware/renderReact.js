@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * Render react application to html string
  */
@@ -7,7 +8,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
 function renderReact() {
-  return function *renderReact(next) {
+  return function *renderReact() {
     // NOTE: These are not imported at top level so that development
     // hot-reloading will work.
     const Html = require('../../containers/Html');
@@ -35,7 +36,7 @@ function renderReact() {
         content={renderToString(routeContext)}
       />
     );
-  }
+  };
 }
 
 export default renderReact;

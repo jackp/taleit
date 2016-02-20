@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * Hot Reload development server
  */
@@ -19,7 +20,6 @@ webpackCompiler.plugin('compile', () => {
 });
 
 webpackCompiler.plugin('done', (stats) => {
-
   log.hotReload(`Complilation complete in ${stats.toJson().time}ms. Clearing server cache.`);
 
   Object.keys(require.cache).forEach(id => {
