@@ -27,6 +27,9 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: options.DEV,
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
 
     ...(options.DEV ? [

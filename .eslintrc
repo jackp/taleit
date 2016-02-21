@@ -2,5 +2,8 @@
   "extends": "airbnb",
   "ecmaFeatures": {
     "generators": true
+  },
+  "globals": {
+    "__DEV__": false
   }
 }

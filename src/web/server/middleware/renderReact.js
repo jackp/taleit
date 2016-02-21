@@ -6,6 +6,7 @@
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
+import { Provider } from 'react-redux';
 
 function renderReact() {
   return function *renderReact() {
@@ -13,6 +14,7 @@ function renderReact() {
     // hot-reloading will work.
     const Html = require('../../containers/Html');
     const routes = require('../../routes');
+    const store = require('../../store')();
 
     const routeContext = yield new Promise((resolve, reject) => {
       match({
@@ -30,10 +32,16 @@ function renderReact() {
       });
     });
 
+    const content = renderToString(
+      <Provider store={store}>
+        { routeContext }
+      </Provider>
+    );
+
     this.body = renderToStaticMarkup(
       <Html
         title="Testing"
-        content={renderToString(routeContext)}
+        content={content}
       />
     );
   };

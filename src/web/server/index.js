@@ -22,6 +22,9 @@ const log = {
 // Compression
 app.use(compress());
 
+// Set globals to match webpack configuration
+GLOBAL.__DEV__ = app.env === 'development';
+
 // Development configuration
 if (app.env === 'development') {
   app.use(logger());
