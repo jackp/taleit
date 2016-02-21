@@ -10,6 +10,7 @@ require('babel-polyfill');
 const http = require('http');
 const koa = require('koa');
 const logger = require('koa-logger');
+const compress = require('koa-compress');
 const debug = require('debug');
 
 const app = koa();
@@ -17,6 +18,9 @@ const app = koa();
 const log = {
   web: debug('taleit:web'),
 };
+
+// Compression
+app.use(compress());
 
 // Development configuration
 if (app.env === 'development') {
