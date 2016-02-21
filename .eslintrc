@@ -4,6 +4,7 @@
     "generators": true
   },
   "globals": {
-    "__DEV__": false
+    "__DEV__": false,
+    "__CLIENT__": false,
   }
 }

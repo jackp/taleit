@@ -29,6 +29,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: options.DEV,
+      __CLIENT__: true,
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
 

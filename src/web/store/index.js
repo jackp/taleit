@@ -2,12 +2,17 @@
  * Configure Redux store
  */
 
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { browserHistory, createMemoryHistory } from 'react-router';
+import { syncHistory } from 'react-router-redux';
 
 import rootReducer from '../reducers';
 
+const reduxRouterMiddleware = syncHistory(__CLIENT__ ? browserHistory : createMemoryHistory());
+
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
+    applyMiddleware(reduxRouterMiddleware),
     typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 

@@ -24,6 +24,7 @@ app.use(compress());
 
 // Set globals to match webpack configuration
 GLOBAL.__DEV__ = app.env === 'development';
+GLOBAL.__CLIENT__ = false;
 
 // Development configuration
 if (app.env === 'development') {
