@@ -3,10 +3,14 @@
  * - Main application container
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 
-const App = () => (
-  <div>App</div>
-);
+class App extends Component {
+  render() {
+    return (
+      <div>App</div>
+    );
+  }
+}
 
 export default App;

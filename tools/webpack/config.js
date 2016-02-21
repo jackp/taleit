@@ -13,7 +13,7 @@ const options = {
 
 module.exports = {
   context: path.resolve(__dirname, '../../src/web'),
-  devTool: options.DEV ? 'cheap-eval-source-map' : 'source-map',
+  devTool: options.DEV ? 'cheap-module-eval-source-map' : 'source-map',
   entry: [
     ...(options.DEV ? [
       'webpack-hot-middleware/client',
@@ -28,8 +28,14 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+
+    ...(options.DEV ? [
+      // Development plugins
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
+    ] : [
+      // Production plugins
+    ]),
   ],
   resolve: {
     extensions: ['', '.js'],
@@ -39,7 +45,14 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-      }
-    ]
-  }
+        query: {
+          env: {
+            development: {
+              presets: ['react-hmre'],
+            },
+          },
+        },
+      },
+    ],
+  },
 };

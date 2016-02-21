@@ -15,6 +15,7 @@ class Html extends Component {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
+          <script src="/bundle.js"></script>
         </body>
       </html>
     );
