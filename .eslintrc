@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "ecmaFeatures": {
     "generators": true
@@ -7,6 +8,7 @@
     "react/prop-types": [2, {
       "ignore": ["children", "dispatch", "className"],
     }],
+    "new-cap": 0
   },
   "globals": {
     "__DEV__": false,

@@ -3,11 +3,15 @@
  */
 
 import React, { Component } from 'react';
+import CSSModules from 'react-css-modules';
 
+import styles from './home.css';
+
+@CSSModules(styles)
 class HomeView extends Component {
   render() {
     return (
-      <div>HomeView</div>
+      <div styleName={styles.root}>HomeView</div>
     );
   }
 }

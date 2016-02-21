@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+require('dotenv').config({ silent: true });
+
+const express = require('express');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const config = require('../tools/webpack/config');
+
+const server = require('../src/web/server')
+/**
+ * Client hot-reload server
+ */
+const app = express();
+
+const clientCompiler = webpack(config({
+  dev: true,
+  client: true,
+}));
+
+app.use(webpackDevMiddleware(clientCompiler, {
+  publicPath: '/',
+}));
+app.use(webpackHotMiddleware(clientCompiler));
+
+// Start server
+const WEBPACK_PORT = process.env.WEBPACK_PORT || 3001;
+
+app.listen(WEBPACK_PORT, () => {
+  console.log('webpack listening...');
+});
