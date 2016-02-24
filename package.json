@@ -1,13 +1,16 @@
 {
   "name": "taleit",
   "version": "1.0.0",
-  "description": "",
+  "description": "TaleIt.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackp/taleit.git"
+  },
   "main": "index.js",
   "scripts": {
     "start": "./bin/start",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jack Parker",
   "license": "ISC",
   "dependencies": {
     "assets-webpack-plugin": "^3.3.0",
