@@ -16,7 +16,7 @@ class Html extends Component {
           { head.title.toComponent() }
           { head.base.toComponent() }
           { head.meta.toComponent() }
-          { this.props.serverStyles ? <style dangerouslySetInnerHTML={{ __html: serverStyles }}/> : null }
+          { this.props.serverStyles ? <style id="serverStyles" dangerouslySetInnerHTML={{ __html: serverStyles }}/> : null }
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }}></div>

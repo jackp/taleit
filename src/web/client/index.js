@@ -22,3 +22,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+// Delete serverStyles, if they exist
+const serverStyles = document.getElementById('serverStyles');
+if (serverStyles) serverStyles.remove();
