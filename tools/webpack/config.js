@@ -102,6 +102,10 @@ module.exports = function webpackConfig(options) {
 
         assetsPluginInstance,
 
+        new webpack.ProvidePlugin({
+          fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        }),
+
         ...(options.dev ? [
           // Development plugins
           new webpack.HotModuleReplacementPlugin(),
@@ -183,6 +187,10 @@ module.exports = function webpackConfig(options) {
         }),
 
         assetsPluginInstance,
+
+        new webpack.ProvidePlugin({
+          fetch: 'imports?this=>global!exports?global.fetch!node-fetch'
+        }),
 
         new webpack.BannerPlugin({
           banner: 'require("source-map-support").install();',
