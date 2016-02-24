@@ -84,8 +84,12 @@ module.exports = function webpackConfig(options) {
           },
         ],
       },
-      postcss() {
+      postcss(webpackInstance) {
         return [
+          require('postcss-import')({
+            path: paths.SRC,
+            addDependencyTo: webpackInstance,
+          }),
           require('postcss-cssnext'),
         ];
       },
@@ -161,8 +165,12 @@ module.exports = function webpackConfig(options) {
           },
         ],
       },
-      postcss() {
+      postcss(webpackInstance) {
         return [
+          require('postcss-import')({
+            path: paths.SRC,
+            addDependencyTo: webpackInstance,
+          }),
           require('postcss-cssnext'),
         ];
       },
