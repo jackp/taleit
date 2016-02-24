@@ -2,6 +2,8 @@
  * Global Styles
  */
 
+@import "normalize.css";
+
 :global body {
   font-family: "Lato";
 }
