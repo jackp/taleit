@@ -7,6 +7,7 @@ require('dotenv').config({ silent: true });
 const http = require('http');
 const koa = require('koa');
 const logger = require('koa-logger');
+const cors = require('koa-cors');
 const debug = require('debug');
 
 const controllers = require('./controllers');
@@ -21,6 +22,8 @@ const log = {
 if (app.env === 'development') {
   app.use(logger());
 }
+
+app.use(cors());
 
 // Mount controllers
 app.use(controllers.routes());
