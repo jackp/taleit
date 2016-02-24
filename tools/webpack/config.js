@@ -71,7 +71,7 @@ module.exports = function webpackConfig(options) {
             loaders: [
               ...(options.dev ? [
                 'style?sourceMap',
-                'css?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css?sourceMap&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                  // Production
