@@ -16,18 +16,29 @@ const paths = {
 };
 
 module.exports = function webpackConfig(options) {
-  return {
-    context: paths.SRC,
-    devTool: options.dev && options.client ? 'cheap-module-eval-source-map' : 'source-map',
-    target: options.client ? 'web' : 'node',
-    resolve: {
-      modules: [
-        paths.SRC,
-        'node_modules',
-      ],
-    },
-    entry: Object.assign({},
-      options.client ? {
+  const assetsPluginInstance = new AssetsPlugin({
+    path: options.dev ? paths.BUILD : paths.DIST,
+    filename: 'assets.json',
+    update: true,
+    prettyPrint: true,
+  });
+
+  return [
+    /**
+     * Client Configuration
+     */
+    {
+      context: paths.SRC,
+      devtool: options.dev ? 'cheap-module-eval-source-map' : 'source-map',
+      target: 'web',
+      resolve: {
+        modules: [
+          paths.SRC,
+          'node_modules',
+        ],
+        extensions: ['', '.js', '.json'],
+      },
+      entry: {
         client: [
           ...(options.dev ? [
             'webpack-hot-middleware/client',
@@ -35,82 +46,147 @@ module.exports = function webpackConfig(options) {
           'babel-polyfill',
           './client',
         ],
-      } : {},
-      options.server ? {
-        server: [
-          'babel-polyfill',
-          './server',
-        ],
-      } : {}
-    ),
-    output: {
-      path: options.dev ? paths.BUILD : paths.DIST,
-      filename: '[name].js',
-      publicPath: '/',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          include: paths.SRC,
-          loader: 'babel',
-          query: {
-            env: {
-              development: {
-                presets: ['react-hmre'],
+      },
+      output: {
+        path: options.dev ? paths.BUILD : paths.DIST,
+        filename: '[name].[hash].js',
+        publicPath: '/',
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            include: paths.SRC,
+            loader: 'babel',
+            query: {
+              env: {
+                development: {
+                  presets: ['react-hmre'],
+                },
               },
             },
           },
-        },
-        {
-          test: /\.css$/,
-          loaders: [
-            ...(options.dev ? [
-              // Development style handling
-              ...(options.client ? [
+          {
+            test: /\.css$/,
+            loaders: [
+              ...(options.dev ? [
                 'style?sourceMap',
-                'css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
-                // Server handling
-                'css/locals?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
-                'postcss',
+                 // Production
               ]),
-            ] : [
-              // Production style handling
-              // TODO: Use extract text plugin
-            ]),
-          ],
-        },
-        {
-          test: /\.json$/,
-          loader: 'json',
-        },
+            ],
+          },
+          {
+            test: /\.json$/,
+            loader: 'json',
+          },
+        ],
+      },
+      postcss() {
+        return [
+          require('postcss-cssnext'),
+        ];
+      },
+      plugins: [
+        new webpack.DefinePlugin({
+          __DEV__: options.dev,
+          __CLIENT__: true,
+        }),
+
+        assetsPluginInstance,
+
+        ...(options.dev ? [
+          // Development plugins
+          new webpack.HotModuleReplacementPlugin(),
+          new webpack.NoErrorsPlugin(),
+        ] : [
+          // Production plugins
+        ]),
       ],
     },
-    postcss() {
-      return [
-        require('postcss-cssnext'),
-      ];
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        __DEV__: options.dev,
-        __CLIENT__: options.client,
-      }),
 
-      new AssetsPlugin({
+    /**
+     * Server configuration
+     */
+    {
+      context: paths.SRC,
+      devtool: 'source-map',
+      target: 'node',
+      resolve: {
+        modules: [
+          paths.SRC,
+          'node_modules',
+        ],
+        extensions: ['', '.js', '.json'],
+      },
+      externals: [
+        /assets\.json$/,
+      ],
+      entry: {
+        server: [
+          './server',
+        ],
+      },
+      output: {
         path: options.dev ? paths.BUILD : paths.DIST,
-        update: true,
-      }),
+        filename: '[name].[hash].js',
+        libraryTarget: 'commonjs2',
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            include: paths.SRC,
+            loader: 'babel',
+          },
+          {
+            test: /\.css$/,
+            loaders: [
+              ...(options.dev ? [
+                // Development style handling
+                path.resolve(__dirname, './collectStyles'),
+                'css?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'postcss',
+              ] : [
+                // Production style handling
+                // TODO: Use extract text plugin
+              ]),
+            ],
+          },
+          {
+            test: /\.json$/,
+            loader: 'json',
+          },
+        ],
+      },
+      postcss() {
+        return [
+          require('postcss-cssnext'),
+        ];
+      },
+      plugins: [
+        new webpack.DefinePlugin({
+          __DEV__: options.dev,
+          __CLIENT__: false,
+        }),
 
-      ...(options.dev ? [
-        // Development plugins
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-      ] : [
-        // Production plugins
-      ]),
-    ],
-  };
+        assetsPluginInstance,
+
+        new webpack.BannerPlugin({
+          banner: 'require("source-map-support").install();',
+          raw: true,
+          entryOnly: false,
+        }),
+
+        ...(options.dev ? [
+          // Development plugins
+          new webpack.NoErrorsPlugin(),
+        ] : [
+          // Production plugins
+        ]),
+      ],
+    },
+  ];
 };

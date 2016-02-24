@@ -1,11 +1,24 @@
 /**
  * Web server entry point
  */
-const http = require('http');
-const koa = require('koa');
-const logger = require('koa-logger');
-const compress = require('koa-compress');
-const debug = require('debug');
+
+import path from 'path';
+import http from 'http';
+import koa from 'koa';
+import logger from 'koa-logger';
+import compress from 'koa-compress';
+import favicon from 'koa-favicon';
+import debug from 'debug';
+
+import React from 'react';
+import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { RouterContext, match } from 'react-router';
+
+import Html from '../containers/Html';
+import routes from '../routes';
+import configureStore from '../store';
+import assets from './assets.json';
 
 const app = koa();
 
@@ -20,6 +33,9 @@ const log = {
 // Compression
 app.use(compress());
 
+// Serve favicon
+app.use(favicon(path.resolve(__dirname, '../public/favicon.ico')));
+
 // Development configuration
 if (app.env === 'development') {
   app.use(logger());
@@ -30,7 +46,40 @@ if (app.env === 'development') {
  */
 
 // Render react application
-app.use(require('./middleware/renderReact')());
+app.use(function *renderReact() {
+  // Get route context
+  const routeContext = yield new Promise((resolve, reject) => {
+    match({
+      routes,
+      location: this.request.url,
+    }, (error, redirectUrl, renderProps) => {
+      if (redirectUrl) {
+        return reject(this.redirect(redirectUrl.pathname + redirectUrl.search));
+      } else if (error) {
+        return reject(this.throw(error.message));
+      }
+
+      resolve(<RouterContext {...renderProps} />);
+    });
+  });
+
+  // Get view html
+  const content = renderToString(
+    <Provider store={configureStore()}>
+      { routeContext }
+    </Provider>
+  );
+
+  // Render html
+  this.body = renderToStaticMarkup(
+    <Html
+      serverStyles={global.__STYLE_COLLECTOR__}
+      assets={assets.client}
+      title="testing"
+      content={content}
+    />
+  );
+});
 
 /**
  * Start application
@@ -46,4 +95,4 @@ if (app.env !== 'development') {
   });
 }
 
-module.exports = app;
+export default app;

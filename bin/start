@@ -1,32 +1,113 @@
 #!/usr/bin/env node
 require('dotenv').config({ silent: true });
+require('babel-polyfill');
 
+const path = require('path');
+const fs = require('fs');
+const debug = require('debug');
+const rimraf = require('rimraf');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const config = require('../tools/webpack/config');
+// Configuration
+const config = require('../tools/webpack/config')({
+  dev: true,
+});
 
-const server = require('../src/web/server')
-/**
- * Client hot-reload server
- */
+const clientConfig = config.find(e => e.target === 'web');
+const serverConfig = config.find(e => e.target === 'node');
+
+const buildDir = path.resolve(__dirname, '../build');
+const assetsFile = path.resolve(__dirname, '../build/assets.json');
+
+// Loggers
+const log = {
+  hotReload: debug('taleit:hot-reload'),
+  web: debug('taleit:web'),
+};
+
+// Load styles on server and insert into html
+global.__STYLE_COLLECTOR_MODULES__ = [];
+global.__STYLE_COLLECTOR__ = '';
+
+// Cleanup
+function clearBuild() {
+  rimraf.sync(buildDir);
+}
+
+clearBuild();
+
 const app = express();
 
-const clientCompiler = webpack(config({
-  dev: true,
-  client: true,
-}));
+// Hot-reload client bundle
+const clientCompiler = webpack(clientConfig);
+
+clientCompiler.plugin('failed', (error) => {
+  log.hotReload('Client bundle failed\n', error);
+});
+clientCompiler.plugin('compile', () => {
+  log.hotReload('Client bundle compiling...');
+});
+clientCompiler.plugin('done', (stats) => {
+  log.hotReload(`Client bundle ${stats.hash} compiled in ${stats.endTime - stats.startTime}ms.`)
+});
 
 app.use(webpackDevMiddleware(clientCompiler, {
+  noInfo: true,
   publicPath: '/',
 }));
-app.use(webpackHotMiddleware(clientCompiler));
+app.use(webpackHotMiddleware(clientCompiler, {
+  log: false,
+}));
+
+
+// Middleware to import server bundle
+app.use((req, res, next) => {
+  const getServerBundle = new Promise((resolve) => {
+    function waitForAssets() {
+      if (fs.existsSync(assetsFile)) {
+        const serverBundlePath = require(assetsFile);
+
+        return resolve(`${buildDir}/${serverBundlePath.server.js}`);
+      }
+      setTimeout(waitForAssets, 500);
+    }
+    waitForAssets();
+  });
+
+  getServerBundle
+  .then((serverPath) => {
+    const middleware = require(serverPath).callback();
+    middleware(req, res, next);
+  })
+  .catch(err => {
+    console.error(err.stack);
+  });
+});
+
+// Watch server bundle
+const serverCompiler = webpack(serverConfig);
+
+serverCompiler.plugin('failed', (error) => {
+  log.hotReload('Server bundle failed\n', error);
+});
+serverCompiler.plugin('compile', () => {
+  log.hotReload('Server bundle compiling...');
+});
+
+serverCompiler.watch({}, (err, stats) => {
+  log.hotReload(`Server bundle ${stats.hash} compiled in ${stats.endTime - stats.startTime}ms.`);
+  // Clear built files from require cache
+  Object.keys(require.cache).forEach(id => {
+    if (new RegExp(buildDir).test(id)) delete require.cache[id];
+  });
+});
 
 // Start server
-const WEBPACK_PORT = process.env.WEBPACK_PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
-app.listen(WEBPACK_PORT, () => {
-  console.log('webpack listening...');
+app.listen(PORT, () => {
+  log.web(`Development server starting up at http://localhost:${PORT}`);
 });
