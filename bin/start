@@ -98,6 +98,8 @@ serverCompiler.plugin('compile', () => {
 });
 
 serverCompiler.watch({}, (err, stats) => {
+  if (err) return log.hotReload('Server bundle error\n', stats.toString());
+
   log.hotReload(`Server bundle ${stats.hash} compiled in ${stats.endTime - stats.startTime}ms.`);
   // Clear built files from require cache
   Object.keys(require.cache).forEach(id => {
