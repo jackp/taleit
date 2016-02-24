@@ -2,16 +2,15 @@
  * User-related actions
  */
 
-export const updateUser = (user) => (
-  {
-    type: 'UPDATE_USER',
-    payload: user,
-  }
-);
+import { createAction } from 'redux-actions';
+import TaleitAPI from 'utils/taleitAPI';
+
+import { UPDATE_USER } from 'constants/actionTypes';
+
+export const updateUser = createAction(UPDATE_USER);
 
 export const getUser = () => (dispatch) => {
-  fetch('http://localhost:3001/login')
-  .then(response => response.json())
-  .then(user => dispatch(updateUser(user)))
-  .catch(error => console.log(error));
+  TaleitAPI('/login').then(user => {
+    dispatch(updateUser(user));
+  });
 };
