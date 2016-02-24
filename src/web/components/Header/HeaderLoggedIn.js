@@ -4,6 +4,8 @@
 
 import React, { Component, PropTypes } from 'react';
 
+import styles from './header.css';
+
 class HeaderLoggedIn extends Component {
   static propTypes = {
     user: PropTypes.object,
@@ -13,7 +15,7 @@ class HeaderLoggedIn extends Component {
     const { user } = this.props;
 
     return (
-      <header>Hi { user.name }</header>
+      <header className={styles.root}>Hi { user.name }</header>
     );
   }
 }

@@ -1,3 +1,7 @@
 :root {
+  /*Colors*/
   --mainColor: red;
+
+  /*Sizing*/
+  --headerHeight: 3rem;
 }

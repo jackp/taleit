@@ -4,10 +4,12 @@
 
 import React, { Component } from 'react';
 
+import styles from './header.css';
+
 class HeaderLoggedOut extends Component {
   render() {
     return (
-      <header>Logged Out</header>
+      <header className={styles.root}>Logged Out</header>
     );
   }
 }
