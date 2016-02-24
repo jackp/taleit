@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const debug = require('debug');
 const rimraf = require('rimraf');
+const nodemon = require('nodemon');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -30,6 +31,7 @@ const assetsFile = path.resolve(__dirname, '../build/assets.json');
 const log = {
   hotReload: debug('taleit:hot-reload'),
   web: debug('taleit:web'),
+  api: debug('taleit:api'),
 };
 
 // Load styles on server and insert into html
@@ -122,4 +124,12 @@ app.listen(PORT, () => {
  * Start API Server
  */
 
-require('../src/api');
+nodemon({
+  script: path.resolve(__dirname, '../src/api/index.js'),
+  ext: 'js json',
+  watch: [path.resolve(__dirname, '../src/api')],
+});
+
+nodemon.on('restart', (files) => {
+  log.api('API server restarting due to changes...');
+});
