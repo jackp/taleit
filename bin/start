@@ -57,7 +57,7 @@ clientCompiler.plugin('compile', () => {
   log.hotReload('Client bundle compiling...');
 });
 clientCompiler.plugin('done', (stats) => {
-  log.hotReload(`Client bundle ${stats.hash} compiled in ${stats.endTime - stats.startTime}ms.`)
+  log.hotReload(`Client bundle ${stats.hash} compiled in ${stats.endTime - stats.startTime}ms.`);
 });
 
 app.use(webpackDevMiddleware(clientCompiler, {
@@ -130,6 +130,6 @@ nodemon({
   watch: [path.resolve(__dirname, '../src/api')],
 });
 
-nodemon.on('restart', (files) => {
+nodemon.on('restart', () => {
   log.api('API server restarting due to changes...');
 });
