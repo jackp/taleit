@@ -5,6 +5,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { browserHistory, createMemoryHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
+import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
 
@@ -12,7 +13,7 @@ const reduxRouterMiddleware = syncHistory(__CLIENT__ ? browserHistory : createMe
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
-    applyMiddleware(reduxRouterMiddleware),
+    applyMiddleware(thunk, reduxRouterMiddleware),
     typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 
