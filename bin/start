@@ -11,6 +11,10 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
+/**
+ * Start Web Server
+ */
+
 // Configuration
 const config = require('../tools/webpack/config')({
   dev: true,
@@ -107,9 +111,15 @@ serverCompiler.watch({}, (err, stats) => {
   });
 });
 
-// Start server
+// Start web server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   log.web(`Development server starting up at http://localhost:${PORT}`);
 });
+
+/**
+ * Start API Server
+ */
+
+require('../src/api');
