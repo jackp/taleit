@@ -103,7 +103,7 @@ module.exports = function webpackConfig(options) {
         assetsPluginInstance,
 
         new webpack.ProvidePlugin({
-          fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+          fetch: 'imports?this=>global!exports?global.fetch!isomorphic-fetch',
         }),
 
         ...(options.dev ? [
@@ -189,7 +189,7 @@ module.exports = function webpackConfig(options) {
         assetsPluginInstance,
 
         new webpack.ProvidePlugin({
-          fetch: 'imports?this=>global!exports?global.fetch!node-fetch'
+          fetch: 'imports?this=>global!exports?global.fetch!isomorphic-fetch',
         }),
 
         new webpack.BannerPlugin({

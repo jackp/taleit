@@ -9,8 +9,8 @@ import { UPDATE_USER } from 'constants/actionTypes';
 
 export const updateUser = createAction(UPDATE_USER);
 
-export const getUser = () => (dispatch) => {
+export const getUser = () => (dispatch) => (
   TaleitAPI('/login').then(user => {
     dispatch(updateUser(user));
-  });
-};
+  })
+);

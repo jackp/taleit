@@ -8,7 +8,13 @@ import React, { Component, PropTypes } from 'react';
 
 class Html extends Component {
   render() {
-    const { head, serverStyles, assets, content } = this.props;
+    const {
+      head,
+      serverStyles,
+      assets,
+      content,
+      initialState,
+    } = this.props;
 
     return (
       <html>
@@ -20,7 +26,14 @@ class Html extends Component {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }}></div>
-          <script src={assets.js}/>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__INITIAL_STATE__ = ${
+                JSON.stringify(initialState, null, 2)
+              };`,
+            }}
+          />
+          <script src={assets.js} />
         </body>
       </html>
     );
@@ -28,6 +41,7 @@ class Html extends Component {
 }
 
 Html.propTypes = {
+  initialState: PropTypes.object,
   serverStyles: PropTypes.string,
   assets: PropTypes.object,
   head: PropTypes.object,

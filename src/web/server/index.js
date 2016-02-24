@@ -15,6 +15,7 @@ import Helmet from 'react-helmet';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext, match } from 'react-router';
+import { trigger } from 'redial';
 
 import Html from '../containers/Html';
 import routes from '../routes';
@@ -48,8 +49,12 @@ if (app.env === 'development') {
 
 // Render react application
 app.use(function *renderReact() {
-  // Get route context
-  const routeContext = yield new Promise((resolve, reject) => {
+  // Create store
+  const store = configureStore();
+  const { dispatch, getState } = store;
+
+  // Get route content
+  const routeContent = yield new Promise((resolve, reject) => {
     match({
       routes,
       location: this.request.url,
@@ -60,24 +65,30 @@ app.use(function *renderReact() {
         return reject(this.throw(error.message));
       }
 
-      resolve(<RouterContext {...renderProps} />);
+      // Trigger "prefetch" event on all components to prefill needed state
+      trigger('prefetch', renderProps.components, {
+        path: renderProps.location.pathname,
+        query: renderProps.location.query,
+        params: renderProps.params,
+        dispatch,
+      }).then(() => {
+        resolve(renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        ));
+      });
     });
   });
-
-  // Get view html
-  const content = renderToString(
-    <Provider store={configureStore()}>
-      { routeContext }
-    </Provider>
-  );
 
   // Render html
   this.body = renderToStaticMarkup(
     <Html
+      initialState={getState()}
       serverStyles={global.__STYLE_COLLECTOR__}
       assets={assets.client}
       head={Helmet.rewind()}
-      content={content}
+      content={routeContent}
     />
   );
 });

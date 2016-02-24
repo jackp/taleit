@@ -11,7 +11,7 @@ import routes from '../routes';
 import configureStore from '../store';
 import 'styles/global.css';
 
-const store = configureStore();
+const store = configureStore(window.__INITIAL_STATE__);
 
 ReactDOM.render(
   <Provider store={store}>
