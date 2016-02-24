@@ -6,11 +6,11 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from '../containers/App';
-import HomeView from '../views/Home';
+import App from 'containers/App';
+import IndexView from 'views/Index';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={HomeView} />
+    <IndexRoute component={IndexView} />
   </Route>
 );
