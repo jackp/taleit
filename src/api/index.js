@@ -23,7 +23,21 @@ if (app.env === 'development') {
   app.use(logger());
 }
 
+// CORS configuration
 app.use(cors());
+
+// Error handling
+app.use(function *errorHandler(next) {
+  try {
+    yield next;
+  } catch (err) {
+    log.api(err);
+
+    this.status = err.status || 500;
+    this.body = { error: err.message };
+    this.app.emit('error', err, this);
+  }
+});
 
 // Mount controllers
 app.use(controllers.routes());
