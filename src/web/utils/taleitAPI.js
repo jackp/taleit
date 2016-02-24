@@ -2,15 +2,29 @@
  * TaleitAPI Utilities
  */
 
+import cookie from 'react-cookie';
+
 // Wrapper for fetch API
 function fetchWrapper(url, options = {}) {
   const apiBase = 'http://localhost:3001'; // TODO: grab this from somewhere
+
   return new Promise((resolve, reject) => {
-    fetch(`${apiBase}${url}`, options)
-    // Convert response to json
-    .then(response => response.json())
+    fetch(`${apiBase}${url}`, {
+      headers: {
+        Authorization: `Bearer ${cookie.load('taleit-jwt')}`,
+      },
+      ...options,
+    })
+    // Process response
+    .then(response => {
+      if (response.status === 204) { // No-content
+        return null;
+      }
+
+      return response.json();
+    })
     .then(json => {
-      if (json.error) {
+      if (json && json.error) {
         resolve(new Error(json.error));
       } else {
         resolve(json);

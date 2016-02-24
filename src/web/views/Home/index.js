@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import View from 'containers/View';
-import { getUser } from 'actions/user';
+import { login } from 'actions/user';
 import styles from './home.css';
 
 @connect(state => ({
@@ -18,7 +18,7 @@ class HomeView extends Component {
   };
 
   handleClick = () => {
-    this.props.dispatch(getUser());
+    this.props.dispatch(login());
   };
 
   render() {

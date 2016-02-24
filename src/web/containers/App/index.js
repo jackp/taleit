@@ -7,11 +7,11 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { provideHooks } from 'redial';
 
-import { getUser } from 'actions/user';
+import { getCurrentUser } from 'actions/user';
 import styles from './app.css';
 
 @provideHooks({
-  prefetch: ({ dispatch }) => dispatch(getUser()),
+  prefetch: ({ dispatch }) => dispatch(getCurrentUser()),
 })
 class App extends Component {
   render() {

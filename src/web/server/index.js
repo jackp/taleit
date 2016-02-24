@@ -12,6 +12,7 @@ import debug from 'debug';
 
 import React from 'react';
 import Helmet from 'react-helmet';
+import cookie from 'react-cookie';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext, match } from 'react-router';
@@ -49,6 +50,10 @@ if (app.env === 'development') {
 
 // Render react application
 app.use(function *renderReact() {
+  // Isomorphic cookie reading
+  // Used in TaleitAPI to get JWT token
+  cookie.setRawCookie(this.headers.cookie);
+
   // Create store
   const store = configureStore();
   const { dispatch, getState } = store;

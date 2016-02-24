@@ -39,6 +39,9 @@ app.use(function *errorHandler(next) {
   }
 });
 
+// Handle JWT
+app.use(require('./middleware/parseJWT'));
+
 // Mount controllers
 app.use(controllers.routes());
 app.use(controllers.allowedMethods());
