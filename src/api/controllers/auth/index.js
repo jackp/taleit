@@ -7,7 +7,7 @@ const authRouter = require('koa-router')();
 
 // Login
 authRouter.get('login', function *login() {
-  this.body = 'login route';
+  this.body = { name: 'Jack Parker' };
 });
 
 // Logout
