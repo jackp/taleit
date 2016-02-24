@@ -91,6 +91,7 @@ module.exports = function webpackConfig(options) {
             addDependencyTo: webpackInstance,
           }),
           require('postcss-cssnext'),
+          require('postcss-font-magician'),
         ];
       },
       plugins: [
@@ -172,6 +173,7 @@ module.exports = function webpackConfig(options) {
             addDependencyTo: webpackInstance,
           }),
           require('postcss-cssnext'),
+          require('postcss-font-magician'),
         ];
       },
       plugins: [

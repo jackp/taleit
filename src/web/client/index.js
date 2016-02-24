@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 import routes from '../routes';
 import configureStore from '../store';
+import 'styles/global.css';
 
 const store = configureStore();
 

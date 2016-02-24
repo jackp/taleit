@@ -1,0 +1,7 @@
+/**
+ * Global Styles
+ */
+
+:global body {
+  font-family: "Lato";
+}
