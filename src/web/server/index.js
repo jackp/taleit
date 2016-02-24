@@ -11,6 +11,7 @@ import favicon from 'koa-favicon';
 import debug from 'debug';
 
 import React from 'react';
+import Helmet from 'react-helmet';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext, match } from 'react-router';
@@ -75,7 +76,7 @@ app.use(function *renderReact() {
     <Html
       serverStyles={global.__STYLE_COLLECTOR__}
       assets={assets.client}
-      title="testing"
+      head={Helmet.rewind()}
       content={content}
     />
   );

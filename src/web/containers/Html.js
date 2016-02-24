@@ -8,15 +8,19 @@ import React, { Component, PropTypes } from 'react';
 
 class Html extends Component {
   render() {
+    const { head, serverStyles, assets, content } = this.props;
+
     return (
       <html>
         <head>
-          <title>{ this.props.title}</title>
-          { this.props.serverStyles ? <style dangerouslySetInnerHTML={{ __html: this.props.serverStyles }}/> : null }
+          { head.title.toComponent() }
+          { head.base.toComponent() }
+          { head.meta.toComponent() }
+          { this.props.serverStyles ? <style dangerouslySetInnerHTML={{ __html: serverStyles }}/> : null }
         </head>
         <body>
-          <div id="root" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
-          <script src={this.props.assets.js}/>
+          <div id="root" dangerouslySetInnerHTML={{ __html: content }}></div>
+          <script src={assets.js}/>
         </body>
       </html>
     );
@@ -26,7 +30,7 @@ class Html extends Component {
 Html.propTypes = {
   serverStyles: PropTypes.string,
   assets: PropTypes.object,
-  title: PropTypes.string,
+  head: PropTypes.object,
   content: PropTypes.string,
 };
 
