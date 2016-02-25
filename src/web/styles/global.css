@@ -2,7 +2,10 @@
  * Global Styles
  */
 
+/*Vendor*/
 @import "normalize.css";
+@import "font-awesome";
+
 @import './variables.css';
 
 /*Layout*/

@@ -71,7 +71,7 @@ module.exports = function webpackConfig(options) {
             loaders: [
               ...(options.dev ? [
                 'style?sourceMap',
-                'css?sourceMap&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css?-url&sourceMap&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                  // Production
@@ -159,7 +159,7 @@ module.exports = function webpackConfig(options) {
             loaders: [
               ...(options.dev ? [
                 // Development style handling
-                'css/locals?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css/locals?-url&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                 // Production style handling
