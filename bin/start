@@ -34,10 +34,6 @@ const log = {
   api: debug('taleit:api'),
 };
 
-// Load styles on server and insert into html
-global.__STYLE_COLLECTOR_MODULES__ = [];
-global.__STYLE_COLLECTOR__ = '';
-
 // Cleanup
 function clearBuild() {
   rimraf.sync(buildDir);

@@ -90,7 +90,6 @@ app.use(function *renderReact() {
   this.body = renderToStaticMarkup(
     <Html
       initialState={getState()}
-      serverStyles={global.__STYLE_COLLECTOR__}
       assets={assets.client}
       head={Helmet.rewind()}
       content={routeContent}

@@ -10,7 +10,6 @@ class Html extends Component {
   render() {
     const {
       head,
-      serverStyles,
       assets,
       content,
       initialState,
@@ -22,7 +21,6 @@ class Html extends Component {
           { head.title.toComponent() }
           { head.base.toComponent() }
           { head.meta.toComponent() }
-          { this.props.serverStyles ? <style id="serverStyles" dangerouslySetInnerHTML={{ __html: serverStyles }}/> : null }
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }}></div>
@@ -42,7 +40,6 @@ class Html extends Component {
 
 Html.propTypes = {
   initialState: PropTypes.object,
-  serverStyles: PropTypes.string,
   assets: PropTypes.object,
   head: PropTypes.object,
   content: PropTypes.string,

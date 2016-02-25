@@ -155,8 +155,7 @@ module.exports = function webpackConfig(options) {
             loaders: [
               ...(options.dev ? [
                 // Development style handling
-                path.resolve(__dirname, './collectStyles'),
-                'css?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css/locals?modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                 // Production style handling
