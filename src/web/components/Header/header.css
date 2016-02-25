@@ -20,7 +20,7 @@
 
 .primary-link {
   line-height: var(--headerHeight);
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   text-decoration: none;
   color: inherit;
 }

@@ -22,6 +22,7 @@ class HeaderLoggedIn extends Component {
           <img src={logo} />
         </IndexLink>
         <Link to="create" className={styles.primaryLink}>CREATE</Link>
+        <Link to="discover" className={styles.primaryLink}>DISCOVER</Link>
       </header>
     );
   }
