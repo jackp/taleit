@@ -3,7 +3,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { IndexLink } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
 import logo from 'images/logo.svg';
 import styles from './header.css';
@@ -21,6 +21,7 @@ class HeaderLoggedIn extends Component {
         <IndexLink to="/" className={styles.logo}>
           <img src={logo} />
         </IndexLink>
+        <Link to="create" className={styles.primaryLink}>CREATE</Link>
       </header>
     );
   }

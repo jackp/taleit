@@ -17,3 +17,10 @@
   height: 100%;
   padding: 0.5rem;
 }
+
+.primary-link {
+  line-height: var(--headerHeight);
+  padding: 0 1rem;
+  text-decoration: none;
+  color: inherit;
+}
