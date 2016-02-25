@@ -80,8 +80,24 @@ module.exports = function webpackConfig(options) {
             ],
           },
           {
-            test: /\.(gif|png|jpg|svg|eot|woff2|ttf|woff)(\?|$)/,
+            test: /\.(gif|png|jpg|svg)(\?\S*)?$/,
             loader: 'url?limit=8192',
+          },
+          {
+            test: /\.eot(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/vnd.ms-fontobject',
+          },
+          {
+            test: /\.woff2(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-woff2',
+          },
+          {
+            test: /\.woff(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-woff',
+          },
+          {
+            test: /\.ttf(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-ttf',
           },
           {
             test: /\.json$/,
@@ -161,7 +177,7 @@ module.exports = function webpackConfig(options) {
             loaders: [
               ...(options.dev ? [
                 // Development style handling
-                'css/locals?-url&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css/locals?&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                 // Production style handling
@@ -172,6 +188,22 @@ module.exports = function webpackConfig(options) {
           {
             test: /\.(gif|png|jpg|svg)(\?\S*)?$/,
             loader: 'url?limit=8192',
+          },
+          {
+            test: /\.eot(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/vnd.ms-fontobject',
+          },
+          {
+            test: /\.woff2(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-woff2',
+          },
+          {
+            test: /\.woff(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-woff',
+          },
+          {
+            test: /\.ttf(\?\S*)?$/,
+            loader: 'url?limit=8192&mimetype=application/font-ttf',
           },
           {
             test: /\.json$/,
