@@ -24,3 +24,7 @@
   text-decoration: none;
   color: inherit;
 }
+
+.right-menu {
+  margin-left: auto;
+}

@@ -23,6 +23,10 @@ class HeaderLoggedIn extends Component {
         </IndexLink>
         <Link to="create" className={styles.primaryLink}>CREATE</Link>
         <Link to="discover" className={styles.primaryLink}>DISCOVER</Link>
+
+        <div className={styles.rightMenu}>
+          <Link to={user.username}>{ user.name }</Link>
+        </div>
       </header>
     );
   }
