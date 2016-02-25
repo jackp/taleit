@@ -2,11 +2,19 @@
 
 .root {
   position: fixed;
-  display: flex;
   top: 0; left: 0; right: 0;
   height: var(--headerHeight);
 
+  background-color: white;
   box-shadow: 0 0 4px var(--uiPrimaryColor);
+}
+
+.desktop {
+  display: flex;
+}
+
+.mobile {
+  display: flex;
 }
 
 .logo {

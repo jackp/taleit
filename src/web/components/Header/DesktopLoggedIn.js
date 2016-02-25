@@ -1,14 +1,14 @@
 /**
- * <HeaderLoggedIn />
+ * <DesktopLoggedIn />
  */
 
 import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import { IndexLink, Link } from 'react-router';
 
 import logo from 'images/logo.svg';
 import styles from './header.css';
 
-class HeaderLoggedIn extends Component {
+class DesktopLoggedIn extends Component {
   static propTypes = {
     user: PropTypes.object,
   };
@@ -17,7 +17,7 @@ class HeaderLoggedIn extends Component {
     const { user } = this.props;
 
     return (
-      <header className={styles.root}>
+      <div className={styles.desktop}>
         <IndexLink to="/" className={styles.logo}>
           <img src={logo} />
         </IndexLink>
@@ -27,9 +27,9 @@ class HeaderLoggedIn extends Component {
         <div className={styles.rightMenu}>
           <Link to={user.username}>{ user.name }</Link>
         </div>
-      </header>
+      </div>
     );
   }
 }
 
-export default HeaderLoggedIn;
+export default DesktopLoggedIn;
