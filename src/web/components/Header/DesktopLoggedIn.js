@@ -31,6 +31,7 @@ class DesktopLoggedIn extends Component {
             <Icon name="caret-down" />
           </Link>
           <div className={styles.dropdownMenu}>
+            <Link to="settings" className={styles.dropdownMenuItem}>Settings</Link>
           </div>
         </div>
       </div>

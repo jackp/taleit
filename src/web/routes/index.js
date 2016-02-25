@@ -11,12 +11,14 @@ import IndexView from 'views/Index';
 import AuthorView from 'views/author';
 import DiscoverView from 'views/Discover';
 import EditorView from 'views/Editor';
+import SettingsView from 'views/Settings';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={IndexView} />
-    <Route path="discover" component={DiscoverView} />
     <Route path="create" component={EditorView} />
+    <Route path="discover" component={DiscoverView} />
+    <Route path="settings" component={SettingsView} />
     { /* Important that the AuthorView is last */ }
     <Route path=":username" component={AuthorView} />
   </Route>
