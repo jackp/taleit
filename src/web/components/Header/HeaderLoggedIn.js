@@ -3,7 +3,9 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import { IndexLink } from 'react-router';
 
+import logo from 'images/logo.svg';
 import styles from './header.css';
 
 class HeaderLoggedIn extends Component {
@@ -15,7 +17,11 @@ class HeaderLoggedIn extends Component {
     const { user } = this.props;
 
     return (
-      <header className={styles.root}>Hi { user.name }</header>
+      <header className={styles.root}>
+        <IndexLink to="/" className={styles.logo}>
+          <img src={logo} />
+        </IndexLink>
+      </header>
     );
   }
 }

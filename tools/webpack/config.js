@@ -79,6 +79,10 @@ module.exports = function webpackConfig(options) {
             ],
           },
           {
+            test: /\.(gif|png|jpg|svg|eot|woff2|ttf|woff)(\?|$)/,
+            loader: 'url?limit=8192',
+          },
+          {
             test: /\.json$/,
             loader: 'json',
           },
@@ -162,6 +166,10 @@ module.exports = function webpackConfig(options) {
                 // TODO: Use extract text plugin
               ]),
             ],
+          },
+          {
+            test: /\.(gif|png|jpg|svg|eot|woff2|ttf|woff)(\?|$)/,
+            loader: 'url?limit=8192',
           },
           {
             test: /\.json$/,
