@@ -19,6 +19,7 @@ class Header extends Component {
 
   render() {
     const { user } = this.props;
+
     return user ? <HeaderLoggedIn user={user} /> : <HeaderLoggedOut />;
   }
 }

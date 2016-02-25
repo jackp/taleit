@@ -16,6 +16,7 @@ authRouter.get('login', function *login() {
     name: 'Jack Parker',
     admin: true,
     email: 'jack@jack.com',
+    username: 'jack',
   };
 
   // Sign JWT

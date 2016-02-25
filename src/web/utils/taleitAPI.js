@@ -9,9 +9,11 @@ function fetchWrapper(url, options = {}) {
   const apiBase = 'http://localhost:3001'; // TODO: grab this from somewhere
 
   return new Promise((resolve, reject) => {
+    const jwt = cookie.load('taleit-jwt');
+
     fetch(`${apiBase}${url}`, {
       headers: {
-        Authorization: `Bearer ${cookie.load('taleit-jwt')}`,
+        Authorization: jwt ? `Bearer ${jwt}` : null,
       },
       ...options,
     })
