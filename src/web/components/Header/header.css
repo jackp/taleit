@@ -8,6 +8,10 @@
   background-color: white;
   box-shadow: 0 0 4px var(--uiPrimaryColor);
 }
+.root a {
+  text-decoration: none;
+  color: inherit;
+}
 
 .desktop {
   display: flex;
@@ -19,20 +23,56 @@
 
 .logo {
   position: relative;
-}
 
-.logo img {
-  height: 100%;
-  padding: 0.5rem;
+  & img {
+    height: 100%;
+    padding: 0.5rem;
+  }
 }
 
 .primary-link {
   line-height: var(--headerHeight);
   padding: 0 0.5rem;
-  text-decoration: none;
-  color: inherit;
 }
 
 .right-menu {
+  display: flex;
   margin-left: auto;
+}
+
+/**
+ * Dropdown Menu
+ */
+.dropdown-item {
+  position: relative;
+  padding: 0 0.5rem;
+  line-height: var(--headerHeight);
+
+  & i {
+    margin-left: 5px;
+  }
+
+  &:hover + .dropdown-menu {
+    display: block;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100px;
+
+  background-color: white;
+  border: 1px solid var(--uiPrimaryColor);
+
+  &:hover {
+    display: block;
+  }
+
+}
+
+.dropdown-menu-item {
+
 }
