@@ -2,7 +2,10 @@
  * User reducers
  */
 
-import { UPDATE_USER } from 'constants/actionTypes';
+import {
+  UPDATE_USER,
+  LOGOUT,
+} from 'constants/actionTypes';
 
 const initialState = null;
 
@@ -17,6 +20,9 @@ export default function userReducers(state = initialState, action) {
       }
 
       return state;
+
+    case LOGOUT:
+      return null;
 
     default:
       return state;
