@@ -68,10 +68,11 @@ module.exports = function webpackConfig(options) {
           },
           {
             test: /\.css$/,
+            include: paths.SRC,
             loaders: [
               ...(options.dev ? [
                 'style?sourceMap',
-                'css?-url&sourceMap&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+                'css?&sourceMap&modules&camelCase=dashes&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
                 'postcss',
               ] : [
                  // Production
@@ -156,6 +157,7 @@ module.exports = function webpackConfig(options) {
           },
           {
             test: /\.css$/,
+            include: paths.SRC,
             loaders: [
               ...(options.dev ? [
                 // Development style handling
@@ -168,7 +170,7 @@ module.exports = function webpackConfig(options) {
             ],
           },
           {
-            test: /\.(gif|png|jpg|svg|eot|woff2|ttf|woff)(\?|$)/,
+            test: /\.(gif|png|jpg|svg)(\?\S*)?$/,
             loader: 'url?limit=8192',
           },
           {
