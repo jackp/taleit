@@ -4,4 +4,8 @@
 
   /*Sizing*/
   --headerHeight: 3rem;
+
+  /*Typography*/
+  --baseFontSize: 16px;
+  --bodyFont: 'Lato';
 }

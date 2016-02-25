@@ -3,6 +3,7 @@
  */
 
 @import "normalize.css";
+@import './variables.css';
 
 /*Layout*/
 :global html {
@@ -23,9 +24,9 @@
 
 /*Typography*/
 :global html {
-  font-size: 16px;
+  font-size: var(--baseFontSize);
 }
 
 :global body {
-  font-family: "Lato";
+  font-family: var(--bodyFont);
 }
