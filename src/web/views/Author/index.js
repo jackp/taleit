@@ -2,7 +2,7 @@
  * <AuthorView />
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import View from 'containers/View';
 import styles from './author.css';

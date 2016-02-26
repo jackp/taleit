@@ -15,10 +15,24 @@
 
 .desktop {
   display: flex;
+
+  & > * {
+    display: flex;
+  }
 }
 
 .mobile {
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > * {
+    flex: 0;
+  }
+
+  .logo {
+    flex: 1;
+  }
 }
 
 .logo {
@@ -35,8 +49,11 @@
   padding: 0 0.5rem;
 }
 
+.secondary-link {
+
+}
+
 .right-menu {
-  display: flex;
   margin-left: auto;
 }
 

@@ -11,6 +11,7 @@ import IndexView from 'views/Index';
 import AuthorView from 'views/author';
 import DiscoverView from 'views/Discover';
 import EditorView from 'views/Editor';
+import ErrorView from 'views/Error';
 import MessagesView from 'views/Messages';
 import NotificationsView from 'views/Notifications';
 import SearchView from 'views/Search';
@@ -27,5 +28,6 @@ export default (
     <Route path="settings" component={SettingsView} />
     { /* Important that the AuthorView is last */ }
     <Route path=":username" component={AuthorView} />
+    <Route path="*" component={ErrorView} />
   </Route>
 );
