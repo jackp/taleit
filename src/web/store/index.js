@@ -8,13 +8,19 @@ import { syncHistory } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
-import { errorMiddleware } from 'utils/redux';
+import errors from './middleware/error';
 
 const reduxRouterMiddleware = syncHistory(__CLIENT__ ? browserHistory : createMemoryHistory());
 
+const middleware = [
+  thunk,
+  reduxRouterMiddleware,
+  errors,
+];
+
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
-    applyMiddleware(thunk, reduxRouterMiddleware, errorMiddleware),
+    applyMiddleware(...middleware),
     typeof window === 'object' && window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 

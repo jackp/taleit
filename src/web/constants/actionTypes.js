@@ -9,3 +9,6 @@ export const LOGOUT = 'LOGOUT';
 // UI
 export const SHOW_HEADER = 'SHOW_HEADER';
 export const HIDE_HEADER = 'HIDE_HEADER';
+
+// Editor
+export const UPDATE_DRAFT = 'UPDATE_DRAFT';
