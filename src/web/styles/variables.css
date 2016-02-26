@@ -1,6 +1,9 @@
 :root {
   /*Colors*/
-  --mainColor: red;
+  --primaryColor: #FF9900;
+  --secondaryColor: #00B4FF;
+  --uiPrimaryColor: #515151;
+  --backgroundColor: #EEEEEE;
 
   /*Sizing*/
   --headerHeight: 3rem;

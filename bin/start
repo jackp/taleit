@@ -124,6 +124,7 @@ nodemon({
   script: path.resolve(__dirname, '../src/api/index.js'),
   ext: 'js json',
   watch: [path.resolve(__dirname, '../src/api')],
+  restartable: false,
 });
 
 nodemon.on('restart', () => {

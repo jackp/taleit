@@ -4,4 +4,92 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--headerHeight);
+
+  background-color: white;
+  box-shadow: 0 0 4px var(--uiPrimaryColor);
+}
+.root a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.desktop {
+  display: flex;
+
+  & > * {
+    display: flex;
+  }
+}
+
+.mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > * {
+    flex: 0;
+  }
+
+  .logo {
+    flex: 1;
+  }
+}
+
+.logo {
+  position: relative;
+
+  & img {
+    height: 100%;
+    padding: 0.5rem;
+  }
+}
+
+.primary-link {
+  line-height: var(--headerHeight);
+  padding: 0 0.5rem;
+}
+
+.secondary-link {
+
+}
+
+.right-menu {
+  margin-left: auto;
+}
+
+/**
+ * Dropdown Menu
+ */
+.dropdown-item {
+  position: relative;
+  padding: 0 0.5rem;
+  line-height: var(--headerHeight);
+
+  & i {
+    margin-left: 5px;
+  }
+
+  &:hover + .dropdown-menu {
+    display: block;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100px;
+
+  background-color: white;
+  border: 1px solid var(--uiPrimaryColor);
+
+  &:hover {
+    display: block;
+  }
+
+}
+
+.dropdown-menu-item {
+
 }

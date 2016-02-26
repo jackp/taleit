@@ -2,7 +2,9 @@
  * Global Styles
  */
 
+/*Vendor*/
 @import "normalize.css";
+
 @import './variables.css';
 
 /*Layout*/

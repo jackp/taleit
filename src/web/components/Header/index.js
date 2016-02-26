@@ -5,9 +5,15 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 
-import HeaderLoggedIn from './HeaderLoggedIn';
-import HeaderLoggedOut from './HeaderLoggedOut';
+import DesktopLoggedIn from './DesktopLoggedIn';
+import DesktopLoggedOut from './DesktopLoggedOut';
+import MobileLoggedIn from './MobileLoggedIn';
+import MobileLoggedOut from './MobileLoggedOut';
+import styles from './header.css';
+
+const mobileBreakpoint = 968;
 
 @connect(state => ({
   user: state.user,
@@ -19,7 +25,16 @@ class Header extends Component {
 
   render() {
     const { user } = this.props;
-    return user ? <HeaderLoggedIn user={user} /> : <HeaderLoggedOut />;
+    return (
+      <header className={styles.root}>
+        <MediaQuery minWidth={mobileBreakpoint} values={{ width: mobileBreakpoint }}>
+          { user ? <DesktopLoggedIn user={user} /> : <DesktopLoggedOut /> }
+        </MediaQuery>
+        <MediaQuery maxWidth={mobileBreakpoint - 1}>
+          { user ? <MobileLoggedIn user={user} /> : <MobileLoggedOut /> }
+        </MediaQuery>
+      </header>
+    );
   }
 }
 

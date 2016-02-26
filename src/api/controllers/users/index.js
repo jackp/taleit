@@ -14,6 +14,7 @@ usersRouter.get('currentUser', function *currentUser() {
       id: 12,
       name: 'Jack Parker',
       email: 'jack@jack.com',
+      username: 'jack',
       admin: true,
     };
   } else {

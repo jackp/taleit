@@ -3,10 +3,14 @@
  */
 
 import { createAction } from 'redux-actions';
+import { browserHistory } from 'react-router';
 import cookie from 'react-cookie';
 
 import TaleitAPI from 'utils/taleitAPI';
-import { UPDATE_USER } from 'constants/actionTypes';
+import {
+  UPDATE_USER,
+  LOGOUT,
+} from 'constants/actionTypes';
 
 export const updateUser = createAction(UPDATE_USER);
 
@@ -27,3 +31,9 @@ export const login = () => (dispatch) => (
     dispatch(updateUser(response.user));
   })
 );
+
+// Logout
+export const logout = createAction(LOGOUT, () => {
+  cookie.remove('taleit-jwt');
+  browserHistory.push('/');
+});
