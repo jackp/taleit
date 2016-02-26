@@ -11,6 +11,7 @@ import IndexView from 'views/Index';
 import AuthorView from 'views/author';
 import DiscoverView from 'views/Discover';
 import EditorView from 'views/Editor';
+import NotificationsView from 'views/Notifications';
 import SettingsView from 'views/Settings';
 
 export default (
@@ -18,6 +19,7 @@ export default (
     <IndexRoute component={IndexView} />
     <Route path="create" component={EditorView} />
     <Route path="discover" component={DiscoverView} />
+    <Route path="notifications" component={NotificationsView} />
     <Route path="settings" component={SettingsView} />
     { /* Important that the AuthorView is last */ }
     <Route path=":username" component={AuthorView} />
