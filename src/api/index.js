@@ -32,7 +32,7 @@ app.use(cors());
 app.use(bodyParser());
 
 // Database connection
-app.context.db = massive.connectSync({ connectionString: process.env.DB_URL });
+app.context.db = massive.connectSync({ connectionString: process.env.DATABASE_URL });
 
 // Error handling
 app.use(function *errorHandler(next) {

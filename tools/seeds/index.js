@@ -4,7 +4,7 @@
 require('dotenv').config({ silent: true });
 const massive = require('massive');
 
-const db = massive.connectSync({ connectionString: process.env.DB_URL });
+const db = massive.connectSync({ connectionString: process.env.DATABASE_URL });
 
 // Add user
 const addUser = (data) => {
