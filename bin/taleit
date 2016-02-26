@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const app = require('../package.json');
+
+program
+  .version(app.version)
+  .command('start', 'Start local development environment')
+  .parse(process.argv);

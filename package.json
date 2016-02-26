@@ -1,15 +1,12 @@
 {
   "name": "taleit",
   "version": "1.0.0",
-  "description": "TaleIt.com",
+  "description": "Taleit.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/jackp/taleit.git"
   },
-  "main": "index.js",
-  "scripts": {
-    "start": "./bin/start"
-  },
+  "bin": "./bin/taleit",
   "author": "Jack Parker",
   "license": "ISC",
   "dependencies": {
@@ -27,7 +24,9 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-root-import": "^3.2.2",
     "bluebird": "^3.3.1",
+    "chalk": "^1.1.1",
     "classnames": "^2.2.3",
+    "commander": "^2.9.0",
     "css-loader": "^0.23.1",
     "debug": "^2.2.0",
     "dotenv": "^2.0.0",
