@@ -10,6 +10,7 @@ const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const cors = require('koa-cors');
 const debug = require('debug');
+const massive = require('massive');
 
 const controllers = require('./controllers');
 
@@ -27,7 +28,11 @@ if (app.env === 'development') {
 // CORS configuration
 app.use(cors());
 
+// Body parsing
 app.use(bodyParser());
+
+// Database connection
+app.context.db = massive.connectSync({ connectionString: process.env.DB_URL });
 
 // Error handling
 app.use(function *errorHandler(next) {
