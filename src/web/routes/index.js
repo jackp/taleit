@@ -13,6 +13,7 @@ import DiscoverView from 'views/Discover';
 import EditorView from 'views/Editor';
 import MessagesView from 'views/Messages';
 import NotificationsView from 'views/Notifications';
+import SearchView from 'views/Search';
 import SettingsView from 'views/Settings';
 
 export default (
@@ -22,6 +23,7 @@ export default (
     <Route path="discover" component={DiscoverView} />
     <Route path="messages" component={MessagesView} />
     <Route path="notifications" component={NotificationsView} />
+    <Route path="search" component={SearchView} />
     <Route path="settings" component={SettingsView} />
     { /* Important that the AuthorView is last */ }
     <Route path=":username" component={AuthorView} />
