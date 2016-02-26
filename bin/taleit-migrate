@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const shell = require('shelljs');
+const program = require('commander');
+
+/**
+ * CLI Configuration
+ */
+program
+  .parse(process.argv);
+
+const script = path.resolve(__dirname, '../node_modules/.bin/db-migrate');
+const migrationsDir = path.resolve(__dirname, '../src/api/db/migrations');
+
+const defaultArgs = `-m ${migrationsDir}`;
+
+shell.exec(`${script} ${program.args.join(' ')} ${defaultArgs}`);

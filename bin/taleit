@@ -7,4 +7,5 @@ program
   .version(app.version)
   .command('start', 'Start local development environment')
   .command('seed', 'Seed database with data')
+  .command('migrate', 'Create/run database migrations')
   .parse(process.argv);
