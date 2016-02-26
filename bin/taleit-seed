@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+
+const seeds = require('../tools/seeds');
+
+/**
+ * CLI Configuration
+ */
+program
+  .option('-d, --data [data]', 'JSON data to pass to seed function')
+  .arguments('<command>')
+  .action(command => {
+    const seed = seeds[command];
+
+    if (!seed) {
+      console.error('Seed not found. Check /tools/seeds for available options.');
+      process.exit(1);
+    }
+
+    var data;
+    if (program.data) {
+      try {
+        data = JSON.parse(program.data);
+      } catch (e) {
+        console.error('Not valid JSON. Please look at the examples.');
+        process.exit(1);
+      }
+    }
+
+    seed(data);
+  })
+  .parse(process.argv);
