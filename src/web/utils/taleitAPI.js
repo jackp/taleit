@@ -13,6 +13,7 @@ function fetchWrapper(url, options = {}) {
 
     fetch(`${apiBase}${url}`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: jwt ? `Bearer ${jwt}` : null,
       },
       ...options,

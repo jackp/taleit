@@ -1,9 +1,8 @@
 /**
- * Redux Utilities
+ * Error Handler
  */
 
-// Error Handler
-const errorMiddleware = () => next => action => {
+export default () => next => action => {
   if (action.error) {
     console.log('ERROR:', action.payload.message);
     // TODO: Use debug()
@@ -11,8 +10,4 @@ const errorMiddleware = () => next => action => {
   }
 
   return next(action);
-};
-
-export {
-  errorMiddleware,
 };

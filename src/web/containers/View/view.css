@@ -2,6 +2,6 @@
 
 .root {
   flex: 1;
-  margin-top: var(--headerHeight);
   padding: 20px;
+  padding-top: calc(var(--headerHeight) + 20px)
 }
